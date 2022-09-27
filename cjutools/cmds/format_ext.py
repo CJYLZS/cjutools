@@ -15,14 +15,14 @@ class cmd(cmd_base):
         if content:
             return 'from clipboard', dump_json(json.loads(content))[1:]
         else:
-            with open(file, 'r') as f:
+            with open(file, 'r', encoding='utf-8') as f:
                 return file, dump_json(json.load(f))[1:]
 
     def __format_py(self, file=None, content=None):
         mod = import_module('autopep8')
         if content:
             return 'from clipboard', mod.fix_code(content)
-        with open(file, 'r') as f:
+        with open(file, 'r', encoding='utf-8') as f:
             return file, mod.fix_code(f.read())
 
     def __format(self):
@@ -50,7 +50,7 @@ class cmd(cmd_base):
             print(f'{file:-^80}')
             print(res)
             if self.get_opt('o'):
-                with open(file, 'w') as f:
+                with open(file, 'w', encoding='utf-8') as f:
                     f.write(res)
         if len(self.__res_list) == 0:
             info('nothing to do')
