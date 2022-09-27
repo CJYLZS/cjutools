@@ -6,9 +6,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='cjtools',
+    name='cjutools',
     version='0.0.1',
-    keywords='cjtools',
+    keywords='cjutools',
     description='tools depend cjutils',
     license='MIT License',
     url='https://github.com/CJYLZS/cjtools.git',
