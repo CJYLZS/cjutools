@@ -13,7 +13,7 @@ class cmd(cmd_base):
 
     def __format_json(self, file=None, content=None):
         if content:
-            return '', dump_json(json.loads(content))[1:]
+            return 'from clipboard', dump_json(json.loads(content))[1:]
         else:
             with open(file, 'r') as f:
                 return file, dump_json(json.load(f))[1:]
@@ -21,38 +21,26 @@ class cmd(cmd_base):
     def __format_py(self, file=None, content=None):
         mod = import_module('autopep8')
         if content:
-            return '', mod.fix_code(content)
+            return 'from clipboard', mod.fix_code(content)
         with open(file, 'r') as f:
             return file, mod.fix_code(f.read())
 
     def __format(self):
-        if self.get_opt('j'):
-            files = self.get_opt('j').split(',')
-            if len(files) == 0:
-                info('try to use clipboard')
-                self.__res_list.append(
-                    self.__format_json(content=get_clipboard()))
-            for file in files:
-                if not pexist(file):
-                    warn(f'{file} not exist')
-                    continue
-                with open(file, 'r') as f:
-                    self.__res_list.append(self.__format_json(file))
-
-        elif self.get_opt('p'):
-            files = self.get_opt('p').split(',')
-            if len(files) == 0:
-                info('try to use clipboard')
-                self.__res_list.append(
-                    self.__format_py(content=get_clipboard()))
-            for file in files:
-                if not pexist(file):
-                    warn(f'{file} not exist')
-                    continue
-                with open(file, 'r') as f:
-                    self.__res_list.append(self.__format_py(file))
-        else:
-            info('nothing to do')
+        def check_and_format(option, format_func):
+            if self.get_opt(option) != False:
+                files = [d for d in self.get_opt(option).split(',') if len(d) > 0]
+                if len(files) == 0:
+                    info('try to use clipboard')
+                    self.__res_list.append(
+                        format_func(content=get_clipboard()))
+                for file in files:
+                    if not pexist(file):
+                        warn(f'{file} not exist')
+                        continue
+                    with open(file, 'r') as f:
+                        self.__res_list.append(format_func(file))
+        check_and_format('j', self.__format_json)
+        check_and_format('p', self.__format_py)
 
     def main(self):
         self.__res_list = []
@@ -63,4 +51,6 @@ class cmd(cmd_base):
             if self.get_opt('o'):
                 with open(file, 'w') as f:
                     f.write(res)
+        if len(self.__res_list) == 0:
+            info('nothing to do')
         return 0
