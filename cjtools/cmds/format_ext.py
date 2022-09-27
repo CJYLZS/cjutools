@@ -43,6 +43,7 @@ class cmd(cmd_base):
         check_and_format('p', self.__format_py)
 
     def main(self):
+        info(self.exec_dir)
         self.__res_list = []
         self.__format()
         for file, res in self.__res_list:
