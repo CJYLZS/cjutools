@@ -17,5 +17,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     platforms='any',
-    install_requires=['cjutils']
+    install_requires=['cjutils>=0.0.10']
 )
