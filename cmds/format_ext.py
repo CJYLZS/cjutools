@@ -55,9 +55,6 @@ class cmd(cmd_base):
             info('nothing to do')
 
     def main(self):
-        info(self.sys_args)
-        info(self.sys_short_args)
-        info(self.sys_targets)
         self.__res_list = []
         self.__format()
         for file, res in self.__res_list:
