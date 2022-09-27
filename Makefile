@@ -11,6 +11,6 @@ upload:
 	twine upload dist/*	
 
 clean:
-	rm -rf build cjtools.egg-info dist
+	rm -rf build cjutools.egg-info dist
 
 all: clean build remove install

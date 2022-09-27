@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='cjutools',
-    version='0.0.1',
+    version='0.0.2',
     keywords='cjutools',
     description='tools depend cjutils',
     license='MIT License',
