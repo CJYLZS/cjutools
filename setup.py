@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author: cjylzs(691086891@qq.com)
-# Description: utils and cmd framework
+# Description: tools depend cjutils
 
 from setuptools import setup, find_packages
 
 setup(
     name='cjutools',
-    version='0.0.5',
+    version='0.0.6',
     keywords='cjutools',
     description='tools depend cjutils',
     license='MIT License',
