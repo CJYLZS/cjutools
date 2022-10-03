@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 with open('README.rst', 'r') as f:
     setup(
         name='cjutools',
-        version='0.0.7',
+        version='0.0.8',
         keywords='cjutools',
         description='tools depend cjutils',
         long_description=f.read(),

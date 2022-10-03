@@ -28,20 +28,20 @@ class cmd(cmd_base):
             header, body = tmp
         header_lines = header.split('\r\n')
         mode, url, _ = header_lines[0].split()
-        code = f'req_url = "{url}"\nreq_headers = {{\n'
+        code = f"req_url = '{url}'\nreq_headers = {{\n"
         for line in header_lines[1:-1]:
             key, *val = line.split(':')
-            key = key.replace('"', '\\"')
-            val = ':'.join(val).replace('"', '\\"').strip()
-            code += f'    "{key}": "{val}",\n'
+            key = key.replace('\\', '\\\\')
+            val = ':'.join(val).replace('\\', '\\\\').strip()
+            code += f"    '{key}': '{val}',\n"
         key, *val = header_lines[-1].split(':')
-        key = key.replace('"', '\\"')
-        val = ':'.join(val).replace('"', '\\"').strip()
-        code += f'    "{key}": "{val}"\n'
+        key = key.replace('\\', '\\\\')
+        val = ':'.join(val).replace('\\', '\\\\').strip()
+        code += f"    '{key}': '{val}'\n"
         code += '}\n'
         if mode == 'POST':
-            body = body.replace('"', '\\"')
-            code += f'req_body = "{body}"\n'
+            body = body.replace('\\', '\\\\').strip('\r\n')
+            code += f"req_body = '{body}'\n"
             code += f'\nreq = requests.post(url = req_url, headers = req_headers, data = req_body, verify = False)\n'
         elif mode == 'GET':
             code += f'\nreq = requests.get(url = req_url, headers = req_headers, verify = False)\n'
