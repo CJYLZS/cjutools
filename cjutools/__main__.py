@@ -8,7 +8,7 @@ from cjutils.utils import *
 class cmd(cmd_base):
     def __init__(self) -> None:
         super().__init__([
-        ], brief_intro="tools base", enable_plugins=True, plugin_dir=os.path.realpath(pjoin(dirname(__file__), 'cmds/')))
+        ], brief_intro="tools base", enable_plugins=True, plugin_dir=os.path.realpath(pjoin(dirname(__file__), 'cmds/')), enable_empty_options=False)
 
     def main(self):
 

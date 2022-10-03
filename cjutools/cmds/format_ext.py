@@ -16,7 +16,7 @@ class cmd(cmd_base):
             ('i', 'in-place', 'make changes to files in place', False, False),
             ('o', 'output', 'output result to file', "", False),
             ('c', 'clipboard', 'output result to clipboard', False, False)
-        ], brief_intro="format tool", enable_plugins=False)
+        ], brief_intro="format tool", enable_plugins=False, enable_empty_options=False)
 
     def __from_fiddler_text_to_code(self, text: bytes):
         tmp = text.decode().split('\r\n\r\n')
