@@ -5,7 +5,7 @@ from inspect import isgenerator
 
 
 class cmd(cmd_base):
-    def __init__(self, options_argv=..., brief_intro="", enable_plugins=True) -> None:
+    def __init__(self, prog=None) -> None:
         super().__init__([
             ('j', 'json', 'format json file, multiple file separate with ","', "", False),
             ('J', 'Json', 'format dir all json files', ".", False),
@@ -16,7 +16,7 @@ class cmd(cmd_base):
             ('i', 'in-place', 'make changes to files in place', False, False),
             ('o', 'output', 'output result to file', "", False),
             ('c', 'clipboard', 'output result to clipboard', False, False)
-        ], brief_intro="format tool", enable_plugins=False, enable_empty_options=False)
+        ], prog=prog, description='a simple formatter', enable_plugins=False)
 
     def __from_fiddler_text_to_code(self, text: bytes):
         tmp = text.decode().split('\r\n\r\n')
@@ -100,7 +100,7 @@ class cmd(cmd_base):
 
     def __format(self):
         def check_and_format(option, format_func):
-            if self.sys_has_opt(option):
+            if self.get_opt(option) is not None:
                 args = [d for d in self.get_opt(
                     option).split(',') if len(d) > 0]
                 if len(args) == 0:
